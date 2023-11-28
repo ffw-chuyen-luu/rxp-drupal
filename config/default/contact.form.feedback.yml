@@ -1,0 +1,14 @@
+uuid: 98f0df91-e812-4350-97d0-03c61718b562
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: vymHlgJy26BuI5GGj9-IXjwR3dRC5C0tij4BpWJnoqw
+id: feedback
+label: 'Website feedback'
+recipients:
+  - chuyen.luu@ffw.com
+reply: ''
+weight: 0
+message: 'Your message has been sent.'
+redirect: ''
