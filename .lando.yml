@@ -34,3 +34,11 @@ services:
       database: dbs3
       user: drupal10
       password: drupal10
+
+tooling:
+  fresh_install:
+    service: appserver
+    cmd: /app/scripts/fresh_install.sh
+    options:
+      site:
+        default: none
