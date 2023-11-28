@@ -13,3 +13,24 @@ proxy:
 services:
   appserver:
     type: php:8.2
+
+  dbs1:
+    type: mariadb
+    creds:
+      database: dbs1
+      user: drupal10
+      password: drupal10
+
+  dbs2:
+    type: mariadb
+    creds:
+      database: dbs2
+      user: drupal10
+      password: drupal10
+
+  dbs3:
+    type: mariadb
+    creds:
+      database: dbs3
+      user: drupal10
+      password: drupal10
