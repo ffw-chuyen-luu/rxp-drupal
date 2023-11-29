@@ -1,0 +1,22 @@
+uuid: d689e4ba-e373-4a54-b277-64d94e24443c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.body_copy.field_wysiwyg
+    - paragraphs.paragraphs_type.body_copy
+  module:
+    - text
+id: paragraph.body_copy.default
+targetEntityType: paragraph
+bundle: body_copy
+mode: default
+content:
+  field_wysiwyg:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }
