@@ -19,6 +19,7 @@
         "drupal/core-composer-scaffold": "^10.1",
         "drupal/core-project-message": "^10.1",
         "drupal/core-recommended": "^10.1",
+        "drupal/devel": "^5.1",
         "drush/drush": "^12.4"
     },
     "conflict": {
@@ -71,5 +72,9 @@
                 "type:drupal-custom-theme"
             ]
         }
+    },
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "squizlabs/php_codesniffer": "^3.7"
     }
 }

@@ -42,3 +42,7 @@ tooling:
     options:
       site:
         default: none
+
+  phpcs:
+    service: appserver
+    cmd: /app/vendor/bin/phpcs
