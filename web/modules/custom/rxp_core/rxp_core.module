@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Custom functions for RXP sites.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+use Drupal\rxp_core\Entity\Media;
+use Drupal\rxp_core\Entity\Node;
+use Drupal\rxp_core\Entity\Paragraph;
+use Drupal\rxp_core\Entity\Term;
+use Drupal\rxp_core\Entity\User;
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function rxp_core_entity_bundle_info_alter(array &$bundles): void {
+  $bundles_to_override = [
+    'node' => Node::class,
+    'paragraph' => Paragraph::class,
+    'media' => Media::class,
+    'taxonomy_term' => Term::class,
+    'user' => User::class,
+  ];
+
+  // Assign bundle classes.
+  foreach ($bundles_to_override as $bundle_type => $bundle_type_class) {
+    if (isset($bundles[$bundle_type])) {
+      foreach (array_keys($bundles[$bundle_type]) as $bundle_type_class_name) {
+        $bundles[$bundle_type][$bundle_type_class_name]['class'] = $bundle_type_class;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function rxp_core_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode): void {
+  if (!$entity instanceof NodeInterface || $view_mode !== 'full') {
+    return;
+  }
+
+  if ($entity->getType() !== 'landing_page') {
+    return;
+  }
+
+  $build['#attached']['library'][] = 'rxp_core/datalayer';
+  $build['#attached']['drupalSettings']['rxpCore']['entityData'] = $entity->toArray();
+}
