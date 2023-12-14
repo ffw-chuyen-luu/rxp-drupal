@@ -1,0 +1,19 @@
+uuid: 443e44ec-296c-4b16-ad47-6eb5450e3378
+langcode: en
+status: false
+dependencies: {  }
+id: s1
+label: 'Site 1'
+description: ''
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/sites/s1
+module: {  }
+theme: {  }
+complete_list: {  }
+partial_list:
+  - core.entity_form_display.paragraph.body_copy.default
+  - core.entity_view_display.paragraph.body_copy.default
+  - field.field.paragraph.body_copy.field_title
