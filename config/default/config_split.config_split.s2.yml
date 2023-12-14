@@ -1,0 +1,23 @@
+uuid: b4e4848a-18bf-4e97-8c1c-6456f59b4c9f
+langcode: en
+status: false
+dependencies: {  }
+id: s2
+label: 'Site 2'
+description: ''
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/sites/s2
+module: {  }
+theme: {  }
+complete_list: {  }
+partial_list:
+  - core.entity_form_display.paragraph.split_view.default
+  - core.entity_view_display.paragraph.split_view.default
+  - field.field.paragraph.split_view.field_link
+  - field.field.paragraph.split_view.field_media
+  - field.field.paragraph.split_view.field_teaser
+  - field.field.paragraph.split_view.field_title
+  - paragraphs.paragraphs_type.split_view
