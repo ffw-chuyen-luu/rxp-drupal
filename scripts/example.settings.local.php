@@ -29,3 +29,5 @@ $databases['default']['default'] = [
 ];
 
 $settings['hash_salt'] = '40DHhhP7qkGvxy48eRkVF7aDRL5pkK1l6f7CB7f8p4ZAn8iOd_g87XCBjFyh4Z8Nd4hmVRtODQ';
+
+$config['config_split.config_split.dev']['status'] = TRUE;

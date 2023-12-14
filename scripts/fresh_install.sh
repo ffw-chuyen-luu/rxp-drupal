@@ -74,6 +74,7 @@ drush $SITE_ALIAS entity:delete shortcut -y
 echo -e "${green_bg} STEP 4 ${NC} ${green}Import config...${NC}"
 drush $SITE_ALIAS cset system.site uuid 6b561dc5-cffe-4aff-b423-e044e392ccf0 -y
 drush $SITE_ALIAS cim -y
+drush $SITE_ALIAS cim -y
 
 echo -e "${green_bg} STEP 4 ${NC} ${green}Generate login link...${NC}"
 drush $SITE_ALIAS uli
