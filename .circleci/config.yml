@@ -3,6 +3,17 @@ init: &init
     - image: cimg/php:8.2
   working_directory: ~/build
 
+git-config: &git-config
+  name: Git configuration
+  command: |
+    if [ ! -d "$HOME/.ssh" ]; then
+      mkdir $HOME/.ssh
+    fi
+    echo 'StrictHostKeyChecking no' > ~/.ssh/config
+    git config --global user.email "$GIT_EMAIL"
+    git config --global user.name "Circle CI"
+    git config --global core.fileMode false
+
 version: 2
 jobs:
   build:
@@ -40,6 +51,8 @@ jobs:
     steps:
       - restore_cache:
           key: build-cache-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          <<: *git-config
       - checkout
       - run:
           command: |
