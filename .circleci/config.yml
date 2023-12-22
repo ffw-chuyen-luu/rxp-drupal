@@ -42,7 +42,7 @@ jobs:
       - run:
           command: |
             git remote add pantheon $PANTHEON_GIT_URL
-            git push pantheon master
+            git push pantheon master -f
 
 workflows:
   version: 2
