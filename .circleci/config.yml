@@ -1,0 +1,65 @@
+init: &init
+  docker:
+    - image: cimg/php:8.2
+  working_directory: ~/build
+
+version: 2
+jobs:
+  build:
+    <<: *init
+    steps:
+      - checkout
+      - run:
+          name: Run composer install
+          command: |
+            composer install --no-ansi --no-interaction --optimize-autoloader --no-progress
+      - save_cache:
+          key: build-cache-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/build
+            - ~/.composer
+
+  codesniffer:
+    <<: *init
+    steps:
+      - checkout
+      - run:
+          name: Running PHP Codesniffer
+          command: |
+            PHPCS_RESULT="$(./vendor/bin/phpcs --report=csv)"
+
+            if echo "$PHPCS_RESULT" | grep -q ",error,"; then
+              echo "error"
+              exit 1
+            fi
+
+  deploy:
+    <<: *init
+    steps:
+      - restore_cache:
+          key: cache-{{ .Environment.CIRCLE_SHA1 }}
+      - checkout
+      - run:
+          command: |
+            git remote add pantheon $PANTHEON_GIT_URL
+            git push pantheon master
+
+workflows:
+  version: 2
+  standard-workflow:
+    jobs:
+      - build
+      - codesniffer:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore:
+                - master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
