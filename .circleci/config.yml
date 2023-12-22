@@ -22,6 +22,8 @@ jobs:
   codesniffer:
     <<: *init
     steps:
+      - restore_cache:
+          key: build-cache-{{ .Environment.CIRCLE_SHA1 }}
       - checkout
       - run:
           name: Running PHP Codesniffer
@@ -37,12 +39,12 @@ jobs:
     <<: *init
     steps:
       - restore_cache:
-          key: cache-{{ .Environment.CIRCLE_SHA1 }}
+          key: build-cache-{{ .Environment.CIRCLE_SHA1 }}
       - checkout
       - run:
           command: |
             git remote add pantheon $PANTHEON_GIT_URL
-            git push pantheon master
+            git push pantheon master -f
 
 workflows:
   version: 2
