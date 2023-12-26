@@ -20,6 +20,7 @@
     ],
     "require": {
         "composer/installers": "^2.0",
+        "cweagans/composer-patches": "^1.7",
         "drupal/config_split": "^2.0",
         "drupal/core-composer-scaffold": "^10.1",
         "drupal/core-project-message": "^10.1",
@@ -32,6 +33,28 @@
         "pantheon-systems/drupal-integrations": "^10.0",
         "pantheon-upstreams/upstream-configuration": "dev-main"
     },
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "autoload": {
+        "classmap": [
+            "upstream-configuration/scripts/ComposerScripts.php"
+        ]
+    },
+    "scripts": {
+        "pantheon-prepare": [
+            "find web/sites -type f -name settings.php -not -path web/sites/default/settings.php -exec dirname {} \\; | xargs -I {} cp web/sites/default/settings.pantheon.php {}"
+        ],
+        "pre-update-cmd": [
+            "DrupalComposerManaged\\ComposerScripts::preUpdate",
+            "@pantheon-prepare"
+        ],
+        "post-update-cmd": [
+            "DrupalComposerManaged\\ComposerScripts::postUpdate",
+            "@pantheon-prepare"
+        ]
+    },
     "conflict": {
         "drupal/drupal": "*"
     },
@@ -43,7 +66,8 @@
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "cweagans/composer-patches": true
         },
         "sort-packages": true,
         "platform": {
@@ -54,9 +78,16 @@
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
+            },
+            "allowed-packages": [
+                "pantheon-systems/drupal-integrations"
+            ],
+            "file-mapping": {
+                "[project-root]/.editorconfig": false,
+                "[project-root]/pantheon.upstream.yml": false,
+                "[project-root]/.gitattributes": false
             }
         },
-        "allowed-packages": ["pantheon-systems/drupal-integrations"],
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
@@ -67,17 +98,11 @@
             "web/modules/custom/{$name}": ["type:drupal-custom-module"],
             "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
-        }
-    },
-    "autoload": {
-        "classmap": ["upstream-configuration/scripts/ComposerScripts.php"]
-    },
-    "scripts": {
-        "pre-update-cmd": ["DrupalComposerManaged\\ComposerScripts::preUpdate"],
-        "post-update-cmd": ["DrupalComposerManaged\\ComposerScripts::postUpdate"]
-    },
-    "require-dev": {
-        "drupal/coder": "^8.3",
-        "squizlabs/php_codesniffer": "^3.7"
+        },
+        "composer-exit-on-patch-failure": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "enable-patching": true
     }
 }

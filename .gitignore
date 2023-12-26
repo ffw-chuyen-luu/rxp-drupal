@@ -3,6 +3,7 @@ web/sites/*/files
 
 # Place local settings in settings.local.php #
 web/sites/*/settings.local.php
+web/sites/*/settings.pantheon.php
 web/sites/*/services*.yml
 web/sites/example.*
 web/sites/development.services.yml
@@ -40,3 +41,4 @@ vendor
 
 .DS_Store
 .idea/
+/.drush-lock-update
