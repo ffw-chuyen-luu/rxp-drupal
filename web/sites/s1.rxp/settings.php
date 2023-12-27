@@ -11,14 +11,6 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
 $settings['config_sync_directory'] = '../config/default';
 
 /**
- * Config settings.
- */
-$config_settings = __DIR__ . "/settings.config.php";
-if (file_exists($config_settings)) {
-  include $config_settings;
-}
-
-/**
  * The default list of directories that will be ignored by Drupal's file API.
  *
  * By default ignore node_modules and bower_components folders to avoid issues
@@ -49,6 +41,14 @@ $settings['entity_update_batch_size'] = 50;
 $local_settings = __DIR__ . "/settings.pantheon.php";
 if (file_exists($local_settings)) {
   include $local_settings;
+}
+
+/**
+ * Config settings.
+ */
+$config_settings = __DIR__ . "/settings.config.php";
+if (file_exists($config_settings)) {
+  include $config_settings;
 }
 
 /**

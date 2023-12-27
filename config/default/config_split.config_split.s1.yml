@@ -12,7 +12,8 @@ storage: folder
 folder: ../config/sites/s1
 module: {  }
 theme: {  }
-complete_list: {  }
+complete_list:
+  - tome_netlify.settings
 partial_list:
   - core.entity_form_display.paragraph.body_copy.default
   - core.entity_view_display.paragraph.body_copy.default
