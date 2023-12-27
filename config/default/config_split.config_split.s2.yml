@@ -12,7 +12,8 @@ storage: folder
 folder: ../config/sites/s2
 module: {  }
 theme: {  }
-complete_list: {  }
+complete_list:
+  - tome_netlify.settings
 partial_list:
   - core.entity_form_display.paragraph.split_view.default
   - core.entity_view_display.paragraph.split_view.default
