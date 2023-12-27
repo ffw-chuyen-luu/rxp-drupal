@@ -1,0 +1,17 @@
+uuid: fff22f9b-60f6-4210-a24a-bd9269680c37
+langcode: en
+status: false
+dependencies: {  }
+id: s3
+label: 'Site 3'
+description: ''
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/sites/s3
+module: {  }
+theme: {  }
+complete_list:
+  - tome_netlify.settings
+partial_list: {  }
