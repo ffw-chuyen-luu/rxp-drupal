@@ -45,16 +45,11 @@
         ]
     },
     "scripts": {
-        "pantheon-prepare": [
-            "find web/sites -type f -name settings.php -not -path web/sites/default/settings.php -exec dirname {} \\; | xargs -I {} cp web/sites/default/settings.pantheon.php {}"
-        ],
         "pre-update-cmd": [
-            "DrupalComposerManaged\\ComposerScripts::preUpdate",
-            "@pantheon-prepare"
+            "DrupalComposerManaged\\ComposerScripts::preUpdate"
         ],
         "post-update-cmd": [
-            "DrupalComposerManaged\\ComposerScripts::postUpdate",
-            "@pantheon-prepare"
+            "DrupalComposerManaged\\ComposerScripts::postUpdate"
         ]
     },
     "conflict": {

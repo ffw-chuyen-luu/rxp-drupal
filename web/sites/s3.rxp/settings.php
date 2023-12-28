@@ -38,9 +38,9 @@ $settings['entity_update_batch_size'] = 50;
 /**
  * Include the Pantheon-specific settings file.
  */
-$local_settings = __DIR__ . "/settings.pantheon.php";
-if (file_exists($local_settings)) {
-  include $local_settings;
+$pantheon_settings = __DIR__ . "/../default/settings.pantheon.php";
+if (file_exists($pantheon_settings)) {
+  include $pantheon_settings;
 }
 
 /**
