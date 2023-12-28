@@ -1,0 +1,5 @@
+services:
+  rxp_core.route_subscriber:
+    class: Drupal\rxp_core\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
