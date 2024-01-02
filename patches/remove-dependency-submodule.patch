@@ -1,0 +1,11 @@
+diff --git a/tome_netlify.info.yml b/tome_netlify.info.yml
+index f70e445..420109f 100644
+--- a/tome_netlify.info.yml
++++ b/tome_netlify.info.yml
+@@ -6,6 +6,5 @@ core_version_requirement: ^8 || ^9 || ^10
+ package: Tome
+ dependencies:
+   - tome:tome_static
+-  - tome_netlify:tome_netlify_contact
+ test_dependencies:
+   - redirect:redirect
