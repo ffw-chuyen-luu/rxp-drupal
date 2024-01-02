@@ -1,0 +1,7 @@
+
+rxp_core.redirect_settings:
+  title: 'Netlify redirects settings'
+  parent: tome_static.main
+  description: 'Manage Netlify redirects settings.'
+  route_name: rxp_core.redirect_settings
+  weight: 20
