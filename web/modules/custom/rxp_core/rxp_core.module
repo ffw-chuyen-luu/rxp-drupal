@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\rxp_core\Entity\Media;
 use Drupal\rxp_core\Entity\Node;
@@ -77,4 +78,23 @@ function rxp_core_form_tome_netlify_redirects_submit_handler(&$form, FormStateIn
       fclose($handle);
     }
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function rxp_core_form_tome_static_generator_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+    $data = json_decode($_SERVER['PRESSFLOW_SETTINGS'], TRUE);
+    $env = $data['conf']['pantheon_environment'] ?? 's1';
+    $base_url = "https://{$env}rxp.netlify.app";
+  }
+  else {
+    $base_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+  }
+
+  $form['base_url'] = [
+    '#type' => 'value',
+    '#value' => rtrim($base_url, '/'),
+  ];
 }
