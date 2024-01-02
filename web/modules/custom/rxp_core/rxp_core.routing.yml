@@ -1,0 +1,7 @@
+rxp_core.redirect_settings:
+  path: '/admin/static/redirects'
+  defaults:
+    _form: 'Drupal\rxp_core\Form\RedirectsSettingsForm'
+    _title: 'Netlify redirects settings'
+  requirements:
+    _permission: 'use tome static'

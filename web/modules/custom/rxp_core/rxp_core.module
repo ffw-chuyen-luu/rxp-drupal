@@ -7,6 +7,8 @@
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\rxp_core\Entity\Media;
 use Drupal\rxp_core\Entity\Node;
@@ -50,4 +52,49 @@ function rxp_core_entity_view(array &$build, EntityInterface $entity, EntityView
 
   $build['#attached']['library'][] = 'rxp_core/datalayer';
   $build['#attached']['drupalSettings']['rxpCore']['entityData'] = $entity->toArray();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function rxp_core_form_tome_netlify_deploy_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  array_unshift($form['#submit'], 'rxp_core_form_tome_netlify_redirects_submit_handler');
+}
+
+/**
+ * Submit handler add custom redirects.
+ */
+function rxp_core_form_tome_netlify_redirects_submit_handler(&$form, FormStateInterface $form_state) {
+  $redirects = \Drupal::config('rxp_core.redirects_settings')->get('redirects') ?? '';
+  if ($redirects) {
+    try {
+      $generator = \Drupal::service('tome_static.generator');
+      $base_dir = $generator->getStaticDirectory();
+      $handle = fopen("$base_dir/_redirects", 'a');
+      fwrite($handle, $redirects);
+      fclose($handle);
+    }
+    catch (\Throwable $th) {
+      fclose($handle);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function rxp_core_form_tome_static_generator_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+    $data = json_decode($_SERVER['PRESSFLOW_SETTINGS'], TRUE);
+    $env = $data['conf']['pantheon_environment'] ?? 's1';
+    $base_url = "https://{$env}rxp.netlify.app";
+  }
+  else {
+    $base_url = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+  }
+
+  $form['base_url'] = [
+    '#type' => 'value',
+    '#value' => rtrim($base_url, '/'),
+  ];
 }
