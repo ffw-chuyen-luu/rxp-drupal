@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\rxp_core\Entity\Media;
 use Drupal\rxp_core\Entity\Node;
 use Drupal\rxp_core\Entity\Paragraph;
@@ -97,4 +98,42 @@ function rxp_core_form_tome_static_generator_form_alter(&$form, FormStateInterfa
     '#type' => 'value',
     '#value' => rtrim($base_url, '/'),
   ];
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function rxp_core_preprocess_paragraph(&$vars) {
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $vars['paragraph'];
+  if ($paragraph->bundle() === 'call_to_action') {
+    if (isset($vars['content']['field_title'][0]['#template'])) {
+      $vars['content']['field_title'][0]['#template'] = '<h2>' . $vars['content']['field_title'][0]['#template'] . '</h2>';
+    }
+
+    if (isset($vars['content']['field_link'][0])) {
+      /** @var \Drupal\Core\Url $url */
+      $url = &$vars['content']['field_link'][0]['#url'];
+      $url->setOption('attributes', ['class' => ['button', 'button--primary']]);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_display_build_alter().
+ */
+function rxp_core_entity_display_build_alter(&$build, $context) {
+  /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+  $entity = $context['entity'];
+  if ($entity instanceof ParagraphInterface && $entity->bundle() === 'split_view') {
+    if (isset($build['field_title'][0]['#template'])) {
+      $build['field_title'][0]['#template'] = '<h2>' . $build['field_title'][0]['#template'] . '</h2>';
+    }
+
+    if (isset($build['field_link'][0])) {
+      /** @var \Drupal\Core\Url $url */
+      $url = &$build['field_link'][0]['#url'];
+      $url->setOption('attributes', ['class' => ['button']]);
+    }
+  }
 }

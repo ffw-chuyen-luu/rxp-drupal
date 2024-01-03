@@ -9,7 +9,110 @@ dependencies:
     - field.field.paragraph.split_view.field_title
     - paragraphs.paragraphs_type.split_view
   module:
+    - layout_builder
+    - layout_discovery
     - link
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: 'Full width'
+          context_mapping: {  }
+        components:
+          28643338-e0d6-49f3-8740-50d31f55f5d8:
+            uuid: 28643338-e0d6-49f3-8740-50d31f55f5d8
+            region: content
+            configuration:
+              id: 'field_block:paragraph:split_view:field_title'
+              label: Title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: 'Two columns'
+          context_mapping: {  }
+          column_widths: 50-50
+        components:
+          498951d5-e2d1-42a9-9a66-1edb67941a75:
+            uuid: 498951d5-e2d1-42a9-9a66-1edb67941a75
+            region: first
+            configuration:
+              id: 'field_block:paragraph:split_view:field_media'
+              label: Image
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: media_thumbnail
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: large
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          966751d1-a550-43c6-bfb3-54af774909b0:
+            uuid: 966751d1-a550-43c6-bfb3-54af774909b0
+            region: second
+            configuration:
+              id: 'field_block:paragraph:split_view:field_teaser'
+              label: Teaser
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: basic_string
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          0b49dcf5-2939-44f0-aced-6ae757eda13e:
+            uuid: 0b49dcf5-2939-44f0-aced-6ae757eda13e
+            region: second
+            configuration:
+              id: 'field_block:paragraph:split_view:field_link'
+              label: Link
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: hidden
+                settings:
+                  trim_length: null
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+        third_party_settings: {  }
 id: paragraph.split_view.default
 targetEntityType: paragraph
 bundle: split_view
