@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\rxp_core\Entity\Media;
 use Drupal\rxp_core\Entity\Node;
 use Drupal\rxp_core\Entity\Paragraph;
@@ -114,6 +115,25 @@ function rxp_core_preprocess_paragraph(&$vars) {
       /** @var \Drupal\Core\Url $url */
       $url = &$vars['content']['field_link'][0]['#url'];
       $url->setOption('attributes', ['class' => ['button', 'button--primary']]);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_display_build_alter().
+ */
+function rxp_core_entity_display_build_alter(&$build, $context) {
+  /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+  $entity = $context['entity'];
+  if ($entity instanceof ParagraphInterface && $entity->bundle() === 'split_view') {
+    if (isset($build['field_title'][0]['#template'])) {
+      $build['field_title'][0]['#template'] = '<h2>' . $build['field_title'][0]['#template'] . '</h2>';
+    }
+
+    if (isset($build['field_link'][0])) {
+      /** @var \Drupal\Core\Url $url */
+      $url = &$build['field_link'][0]['#url'];
+      $url->setOption('attributes', ['class' => ['button']]);
     }
   }
 }
