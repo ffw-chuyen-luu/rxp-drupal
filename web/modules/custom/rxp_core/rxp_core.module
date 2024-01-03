@@ -98,3 +98,22 @@ function rxp_core_form_tome_static_generator_form_alter(&$form, FormStateInterfa
     '#value' => rtrim($base_url, '/'),
   ];
 }
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function rxp_core_preprocess_paragraph(&$vars) {
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $vars['paragraph'];
+  if ($paragraph->bundle() === 'call_to_action') {
+    if (isset($vars['content']['field_title'][0]['#template'])) {
+      $vars['content']['field_title'][0]['#template'] = '<h2>' . $vars['content']['field_title'][0]['#template'] . '</h2>';
+    }
+
+    if (isset($vars['content']['field_link'][0])) {
+      /** @var \Drupal\Core\Url $url */
+      $url = &$vars['content']['field_link'][0]['#url'];
+      $url->setOption('attributes', ['class' => ['button', 'button--primary']]);
+    }
+  }
+}
