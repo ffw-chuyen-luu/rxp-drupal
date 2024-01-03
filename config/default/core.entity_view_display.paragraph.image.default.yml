@@ -4,18 +4,23 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.image.field_media
+    - image.style.wide
     - paragraphs.paragraphs_type.image
+  module:
+    - media
 id: paragraph.image.default
 targetEntityType: paragraph
 bundle: image
 mode: default
 content:
   field_media:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     label: hidden
     settings:
-      view_mode: default
-      link: false
+      image_link: ''
+      image_style: wide
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
