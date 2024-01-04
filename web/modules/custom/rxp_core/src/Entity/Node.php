@@ -12,6 +12,15 @@ class Node extends CoreNode {
   use ContentEntityBaseTrait;
 
   /**
+   * The list additional fields exclude export to data.
+   *
+   * @var array
+   */
+  protected array $additionalExcludes = [
+    'field_tags',
+  ];
+
+  /**
    * {@inheritdoc}
    */
   public function toArray() {
