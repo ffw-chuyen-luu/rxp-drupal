@@ -29,6 +29,7 @@
 
   <file>web/modules/custom</file>
   <file>web/themes/custom</file>
+  <file>web/sites/s3.rxp/modules</file>
 
   <exclude-pattern>*/tests</exclude-pattern>
   <exclude-pattern>*/node_modules</exclude-pattern>
