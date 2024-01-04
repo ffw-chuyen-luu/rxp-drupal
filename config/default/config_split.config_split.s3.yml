@@ -10,7 +10,8 @@ stackable: false
 no_patching: false
 storage: folder
 folder: ../config/sites/s3
-module: {  }
+module:
+  s3_rxp: 0
 theme: {  }
 complete_list:
   - tome_netlify.settings

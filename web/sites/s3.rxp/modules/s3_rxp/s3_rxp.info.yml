@@ -1,0 +1,5 @@
+name: RXP - Site 3
+type: module
+description: 'Provides some functions for RXP site 3.'
+package: RXP
+core_version_requirement: ^10

@@ -12,12 +12,35 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 trait ContentEntityBaseTrait {
 
   /**
+   * The list fields exclude export to data.
+   *
+   * @var array
+   */
+  protected array $excludes = [
+    'default_langcode',
+    'revision_created',
+    'revision_default',
+    'revision_id',
+    'revision_log',
+    'revision_log_message',
+    'revision_timestamp',
+    'revision_translation_affected',
+    'revision_uid',
+    'revision_user',
+  ];
+
+  /**
    * {@inheritdoc}
    */
   public function toArrayData() : array {
     $value = [];
+    $excludes = property_exists($this, 'additionalExcludes') ? array_merge($this->additionalExcludes, $this->excludes) : $this->excludes;
     foreach ($this->getFields() as $field => $property) {
-      $value[$field] = $this->propertyData($property);
+      if (in_array($field, $excludes)) {
+        continue;
+      }
+      $short_field = \str_replace('field_', '', $field);
+      $value[$short_field] = $this->propertyData($property);
     }
 
     return $value;

@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Custom functions for site 3 RXP.
+ */
+
+use Drupal\s3_rxp\Entity\LandingPage;
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function s3_rxp_entity_bundle_info_alter(array &$bundles): void {
+  $bundles['node']['landing_page']['class'] = LandingPage::class;
+}
