@@ -19,3 +19,4 @@ Integrating tools such as:
 * `lando composer install` to install dependencies and base config
 * `lando fresh_install --site={sitename}` to fresh install site, replace `{sitename}` as `s1`, `s2` or `s3`
 * Point your browser to: `https://{sitename}.rxp.lndo.site`
+* Create a new site `lando create_new_site --site={sitename}` and follow to manual steps
