@@ -36,6 +36,13 @@ services:
       password: drupal10
 
 tooling:
+  create_new_site:
+    service: appserver
+    cmd: /app/scripts/create_site.sh
+    options:
+      site:
+        default: none
+
   fresh_install:
     service: appserver
     cmd: /app/scripts/fresh_install.sh
